@@ -2128,10 +2128,12 @@ function initMobileControls() {
 
   /* 右侧滑动转视角 */
   let lookId = null, lx = 0, ly = 0;
-  const isUiTarget = (t) => !!(t && t.closest && t.closest('button, .joystick, .overlay, .audio-toggle'));
+  const isUiTarget = (t) => !!(t && t.closest && t.closest('button, .joystick, .audio-toggle'));
 
   document.addEventListener('pointerdown', (e) => {
-    if (game.state !== 'playing' || lookId !== null || isUiTarget(e.target)) return;
+    if (game.state !== 'playing') return;
+    if (isUiTarget(e.target)) return;
+    // 直接接管视角控制权，避免上一次触摸丢失 pointerup 后卡死
     lookId = e.pointerId;
     lx = e.clientX;
     ly = e.clientY;
@@ -2139,6 +2141,7 @@ function initMobileControls() {
 
   document.addEventListener('pointermove', (e) => {
     if (e.pointerId !== lookId) return;
+    if (e.cancelable) e.preventDefault();
     const dx = e.clientX - lx;
     const dy = e.clientY - ly;
     lx = e.clientX;
