@@ -357,6 +357,14 @@
     color:#e6efea; white-space:nowrap;
   }
 
+  /* 移动端禁止浏览器手势（滚动 / 缩放 / 下拉刷新），否则转视角会被 pointercancel 打断 */
+  body.mobile,
+  body.mobile #game-canvas{
+    touch-action:none;
+    overscroll-behavior:none;
+    -webkit-overflow-scrolling:auto;
+  }
+
   body.mobile .mobile-ui{ display:block; }
   body.mobile .joystick,
   body.mobile .mbtn{ pointer-events:auto; }
