@@ -1,0 +1,7 @@
+# 原始视频素材（游戏运行时不需要，抠像素材与音频已内联进 index.html）
+*.mp4
+
+# 系统 / 编辑器
+.DS_Store
+Thumbs.db
+desktop.ini
